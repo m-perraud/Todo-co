@@ -9,7 +9,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    #[Route('/login', name: 'login')]
+    #[Route('/login', name: 'app_login')]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
          // get the login error if there is one
@@ -19,22 +19,10 @@ class LoginController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
 
-        return $this->render('login/index.html.twig', [
+        return $this->render('login/login.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
         ]);
-    }
-
-    #[Route(path: '/login_check', name: 'login_check')]
-    public function loginCheck()
-    {
-        // This code is never executed.
-    }
-
-    #[Route(path: '/logout', name: 'logout')]
-    public function logoutCheck()
-    {
-        // This code is never executed.
     }
 
     #[Route(path: '/logout', name: 'app_logout')]
