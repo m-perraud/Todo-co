@@ -4,12 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Task;
 use App\Form\TaskType;
-use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class TaskController extends AbstractController
 {
@@ -22,7 +22,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('/task', name: 'task_list')]
-    public function index(): Response
+    public function tasksList(): Response
     {
         
         return $this->render('task/list.html.twig', 
@@ -30,7 +30,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('/task/create', name: 'task_create')]
-    public function createAction(Request $request)
+    public function createTask(Request $request): Response
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
@@ -54,7 +54,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('/task/{id}/edit', name: 'task_edit')]
-    public function editAction(Task $task, Request $request)
+    public function editTask(Task $task, Request $request): Response
     {
         $form = $this->createForm(TaskType::class, $task);
 
@@ -75,7 +75,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('/task/{id}/toggle', name: 'task_toggle')]
-    public function toggleTaskAction(Task $task)
+    public function toggleTaskStatus(Task $task): RedirectResponse
     {
         $task->toggle(!$task->isIsDone());
         $this->getDoctrine->flush();
@@ -86,7 +86,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('/task/{id}/delete', name: 'task_delete')]
-    public function deleteTaskAction(Task $task)
+    public function deleteTask(Task $task): RedirectResponse
     {
         if ($this->getUser() !== $task->getAuthor())
         {
