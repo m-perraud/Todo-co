@@ -24,6 +24,7 @@ class TaskController extends AbstractController
     #[Route('/task', name: 'task_list')]
     public function index(): Response
     {
+        
         return $this->render('task/list.html.twig', 
         ['tasks' => $this->getDoctrine->getRepository(Task::class)->findAll()]);
     }
@@ -38,6 +39,7 @@ class TaskController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine;
+            $task->setAuthor($this->getUser());
 
             $em->persist($task);
             $em->flush();
@@ -86,6 +88,10 @@ class TaskController extends AbstractController
     #[Route('/task/{id}/delete', name: 'task_delete')]
     public function deleteTaskAction(Task $task)
     {
+        if ($this->getUser() !== $task->getAuthor())
+        {
+
+        }
         $em = $this->getDoctrine;
         $em->remove($task);
         $em->flush();
