@@ -36,12 +36,16 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine;
+
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('password')->getData()
                 ));
 
+        if ($form->get('isAdmin')->getData()) {
+            $user->setRoles(['ROLE_ADMIN']);
+        }
             $em->persist($user);
             $em->flush();
 

@@ -26,8 +26,8 @@ class Task
     #[ORM\Column]
     private ?bool $isDone = null;
 
-    #[ORM\ManyToOne(inversedBy: 'taskAuthor')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'taskAuthor', cascade:['persist'])]
+    #[ORM\JoinColumn(nullable: false, onDelete:"Cascade")]
     private ?User $author = null;
 
     public function getId(): ?int
