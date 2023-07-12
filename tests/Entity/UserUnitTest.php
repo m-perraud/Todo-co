@@ -63,10 +63,11 @@ class UserUnitTest extends TestCase
         
         $this->assertEmpty($task->getAuthor());
 
-        $taskAuthor->addTaskAuthor($taskAuthor);
-        $this->assertContains($taskAuthor, $task->getAuthor());
+        $taskAuthor->addTaskAuthor($task);
+        $this->assertSame($taskAuthor, $task->getAuthor());
+        $this->assertContains($task, $taskAuthor->getTaskAuthor());
 
-        $taskAuthor->removeTaskAuthor($taskAuthor);
+        $taskAuthor->removeTaskAuthor($task);
         $this->assertEmpty($task->getAuthor());
 
     }

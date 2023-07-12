@@ -21,6 +21,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/users', name: 'user_list')]
+
     public function usersList(): Response
     {
         return $this->render('user/list.html.twig', 
@@ -28,6 +29,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/users/create', name: 'user_create')]
+
     public function createUser(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
@@ -36,12 +38,16 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine;
+
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('password')->getData()
                 ));
 
+        if ($form->get('isAdmin')->getData()) {
+            $user->setRoles(['ROLE_ADMIN']);
+        }
             $em->persist($user);
             $em->flush();
 
@@ -54,6 +60,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/users/{id}/edit', name: 'user_edit')]
+
     public function editUser(User $user, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = $this->createForm(UserType::class, $user);
