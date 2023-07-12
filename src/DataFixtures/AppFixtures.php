@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
                 ->setTitle($faker->word())
                 ->setContent($faker->text())
                 ->setAuthor($user)
-                ->setIsDone(true);
+                ->setIsDone($faker->randomElement([true, false]));
 
             $manager->persist($task);
             $manager->flush();
