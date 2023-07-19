@@ -44,5 +44,15 @@ class AppFixtures extends Fixture
             $manager->flush();
             }
         }
+
+        // Création utilisateur anonyme
+        $user = new User();
+            $user->setUsername('anonyme')
+                ->setRoles(["ROLE_USER"])
+                ->setPassword($this->userPasswordHasher->hashPassword($user, 'AppFixturesPass'))
+                ->setEmail($faker->email());
+
+            $manager->persist($user);
+            $manager->flush();
     }
 }
