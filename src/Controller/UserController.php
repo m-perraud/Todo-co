@@ -5,26 +5,24 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $getDoctrine
-    )
-    {
-
+    ) {
     }
 
     #[Route('/users', name: 'user_list')]
     public function usersList(): Response
     {
-        return $this->render('user/list.html.twig', 
-        ['users' => $this->getDoctrine->getRepository(User::class)->findAll()]);
+        return $this->render('user/list.html.twig',
+            ['users' => $this->getDoctrine->getRepository(User::class)->findAll()]);
     }
 
     #[Route('/users/create', name: 'user_create')]
@@ -43,9 +41,9 @@ class UserController extends AbstractController
                     $form->get('password')->getData()
                 ));
 
-        if ($form->get('isAdmin')->getData()) {
-            $user->setRoles(['ROLE_ADMIN']);
-        }
+            if ($form->get('isAdmin')->getData()) {
+                $user->setRoles(['ROLE_ADMIN']);
+            }
             $em->persist($user);
             $em->flush();
 

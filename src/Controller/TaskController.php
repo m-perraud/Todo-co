@@ -5,28 +5,24 @@ namespace App\Controller;
 use App\Entity\Task;
 use App\Form\TaskType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class TaskController extends AbstractController
 {
-
     public function __construct(
         private readonly EntityManagerInterface $getDoctrine
-    )
-    {
-
+    ) {
     }
 
     #[Route('/task', name: 'task_list')]
     public function tasksList(): Response
     {
-        
-        return $this->render('task/list.html.twig', 
-        ['tasks' => $this->getDoctrine->getRepository(Task::class)->findAll()]);
+        return $this->render('task/list.html.twig',
+            ['tasks' => $this->getDoctrine->getRepository(Task::class)->findAll()]);
     }
 
     #[Route('/task/create', name: 'task_create')]
@@ -49,8 +45,8 @@ class TaskController extends AbstractController
             return $this->redirectToRoute('task_list');
         }
 
-        return $this->render('task/create.html.twig', 
-        ['form' => $form->createView()]);
+        return $this->render('task/create.html.twig',
+            ['form' => $form->createView()]);
     }
 
     #[Route('/task/{id}/edit', name: 'task_edit')]
@@ -88,8 +84,7 @@ class TaskController extends AbstractController
     #[Route('/task/{id}/delete', name: 'task_delete')]
     public function deleteTask(Task $task): RedirectResponse
     {
-        if ($this->getUser() == $task->getAuthor() || $task->getAuthor()->getUsername() == 'anonyme' && $this->isGranted('ROLE_ADMIN'))
-        {
+        if ($this->getUser() == $task->getAuthor() || 'anonyme' == $task->getAuthor()->getUsername() && $this->isGranted('ROLE_ADMIN')) {
             $em = $this->getDoctrine;
             $em->remove($task);
             $em->flush();
