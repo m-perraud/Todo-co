@@ -2,7 +2,6 @@
 
 namespace App\Tests\Entity;
 
-use DateTime;
 use App\Entity\Task;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
@@ -12,7 +11,7 @@ class TaskUnitTest extends TestCase
     public function testIsTrue()
     {
         $task = new Task();
-        $dateTime = new DateTime();
+        $dateTime = new \DateTime();
         $author = new User();
 
         $task->setCreatedAt($dateTime)
@@ -22,17 +21,16 @@ class TaskUnitTest extends TestCase
             ->setAuthor($author);
 
         $this->assertTrue($task->getCreatedAt() === $dateTime);
-        $this->assertTrue($task->getTitle() === 'TestPHPUnit');
-        $this->assertTrue($task->getContent() === 'Ceci est le contenu du test PHPUnit');
-        $this->assertTrue($task->isIsDone() === true);
+        $this->assertTrue('TestPHPUnit' === $task->getTitle());
+        $this->assertTrue('Ceci est le contenu du test PHPUnit' === $task->getContent());
+        $this->assertTrue(true === $task->isIsDone());
         $this->assertTrue($task->getAuthor() === $author);
-
     }
 
     public function testIsFalse()
     {
         $task = new Task();
-        $dateTime = new DateTime();
+        $dateTime = new \DateTime();
         $author = new User();
 
         $task->setCreatedAt($dateTime)
@@ -41,12 +39,11 @@ class TaskUnitTest extends TestCase
             ->setIsDone(true)
             ->setAuthor($author);
 
-        $this->assertFalse($task->getCreatedAt() === new DateTime());
-        $this->assertFalse($task->getTitle() === 'FalseTestPHPUnit');
-        $this->assertFalse($task->getContent() === 'False : Ceci est le contenu du test PHPUnit');
-        $this->assertFalse($task->isIsDone() === false);
+        $this->assertFalse($task->getCreatedAt() === new \DateTime());
+        $this->assertFalse('FalseTestPHPUnit' === $task->getTitle());
+        $this->assertFalse('False : Ceci est le contenu du test PHPUnit' === $task->getContent());
+        $this->assertFalse(false === $task->isIsDone());
         $this->assertFalse($task->getAuthor() === new User());
-
     }
 
     public function testIsEmpty()
@@ -59,6 +56,5 @@ class TaskUnitTest extends TestCase
         $this->assertEmpty($task->getContent());
         $this->assertEmpty($task->isIsDone());
         $this->assertEmpty($task->getAuthor());
-
     }
 }

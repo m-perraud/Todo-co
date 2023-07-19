@@ -17,12 +17,11 @@ class UserUnitTest extends TestCase
             ->setPassword('testuserphpunit')
             ->setEmail('testunit@test.fr');
 
-        $this->assertTrue($user->getUsername() === 'testuserphpunit');
+        $this->assertTrue('testuserphpunit' === $user->getUsername());
         $this->assertTrue($user->getRoles() === ['ROLE_ADMIN', 'ROLE_USER']);
-        $this->assertTrue($user->getPassword() === 'testuserphpunit');
-        $this->assertTrue($user->getEmail() === 'testunit@test.fr');
-        $this->assertTrue($user->getUserIdentifier() === 'testuserphpunit');
-
+        $this->assertTrue('testuserphpunit' === $user->getPassword());
+        $this->assertTrue('testunit@test.fr' === $user->getEmail());
+        $this->assertTrue('testuserphpunit' === $user->getUserIdentifier());
     }
 
     public function testIsFalse(): void
@@ -34,12 +33,11 @@ class UserUnitTest extends TestCase
             ->setPassword('testuserphpunit')
             ->setEmail('testunit@test.fr');
 
-        $this->assertFalse($user->getUsername() === 'falseuserphpunit');
-        $this->assertFalse($user->getRoles() === 'ROLE_USER');
-        $this->assertFalse($user->getPassword() === 'falseuserphpunit');
-        $this->assertFalse($user->getEmail() === 'falsetestunit@test.fr');
-        $this->assertFalse($user->getUserIdentifier() === 'falseuserphpunit');
-
+        $this->assertFalse('falseuserphpunit' === $user->getUsername());
+        $this->assertFalse('ROLE_USER' == $user->getRoles());
+        $this->assertFalse('falseuserphpunit' === $user->getPassword());
+        $this->assertFalse('falsetestunit@test.fr' === $user->getEmail());
+        $this->assertFalse('falseuserphpunit' === $user->getUserIdentifier());
     }
 
     public function testIsEmpty(): void
@@ -48,19 +46,17 @@ class UserUnitTest extends TestCase
 
         $this->assertEmpty($user->getId());
         $this->assertEmpty($user->getUsername());
-        $this->assertEmpty($user->getRoles() === []);
+        $this->assertEmpty([] === $user->getRoles());
         $this->assertEmpty($user->getEmail());
         $this->assertEmpty($user->getUserIdentifier());
         $this->assertNull($user->eraseCredentials());
-
-
     }
 
     public function testAddGetRemoveTaskAuthor()
     {
         $taskAuthor = new User();
         $task = new Task();
-        
+
         $this->assertEmpty($task->getAuthor());
 
         $taskAuthor->addTaskAuthor($task);
@@ -69,8 +65,5 @@ class UserUnitTest extends TestCase
 
         $taskAuthor->removeTaskAuthor($task);
         $this->assertEmpty($task->getAuthor());
-
     }
-
-
 }

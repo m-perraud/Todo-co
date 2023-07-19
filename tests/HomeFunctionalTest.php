@@ -9,7 +9,7 @@ class HomeFunctionalTest extends WebTestCase
     public function testShouldDisplayHomePage(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/');
+        $client->request('GET', '/');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Bienvenue sur Todo List');
