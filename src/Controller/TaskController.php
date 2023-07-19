@@ -88,15 +88,16 @@ class TaskController extends AbstractController
     #[Route('/task/{id}/delete', name: 'task_delete')]
     public function deleteTaskAction(Task $task)
     {
-        if ($this->getUser() !== $task->getAuthor())
+        if ($this->getUser() == $task->getAuthor() || $task->getAuthor()->getUsername() == 'anonyme' && $this->isGranted('ROLE_ADMIN'))
         {
+            $em = $this->getDoctrine;
+            $em->remove($task);
+            $em->flush();
 
+            $this->addFlash('success', 'La tâche a bien été supprimée.');
+        } else {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer une tâche qui ne vous appartient pas.');
         }
-        $em = $this->getDoctrine;
-        $em->remove($task);
-        $em->flush();
-
-        $this->addFlash('success', 'La tâche a bien été supprimée.');
 
         return $this->redirectToRoute('task_list');
     }
