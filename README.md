@@ -36,3 +36,9 @@ To set up the database, you will need to follow these steps :
 If you want to log in with no specific account but depending on the role, we just created two users in the database thanks to the fixtures : 
 - `ROLE_ADMIN` : username -> admin , password -> AppFixturesPass
 - `ROLE_USER` : username -> anonyme , password -> AppFixturesPass
+
+### Tests
+
+To be able to test the app, you'll need to run one of these two commands :
+- `vendor/bin/phpunit --testdox` to see if the tests are validated simply
+- `vendor/bin/phpunit --coverage-html public/test-coverage` to get the details of the tests, and an html version
