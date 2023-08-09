@@ -1,6 +1,7 @@
 # Todo-co
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/068038d149ae45e7bcce911cf74e07d5)](https://app.codacy.com/gh/m-perraud/Todo-co/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 <a href="https://codeclimate.com/github/m-perraud/Todo-co/maintainability"><img src="https://api.codeclimate.com/v1/badges/f8356698a03e4721d780/maintainability" /></a>
 
 ### Install
