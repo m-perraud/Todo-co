@@ -44,12 +44,12 @@ class UserUnitTest extends TestCase
     {
         $user = new User();
 
+        $user->eraseCredentials();
         $this->assertEmpty($user->getId());
         $this->assertEmpty($user->getUsername());
         $this->assertEmpty([] === $user->getRoles());
         $this->assertEmpty($user->getEmail());
         $this->assertEmpty($user->getUserIdentifier());
-        $this->assertNull($user->eraseCredentials());
     }
 
     public function testAddGetRemoveTaskAuthor()

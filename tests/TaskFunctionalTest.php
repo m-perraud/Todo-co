@@ -102,15 +102,13 @@ class TaskFunctionalTest extends WebTestCase
         $this->assertSelectorExists('div.alert.alert-success');
     }
 
-    /*
     public function testShouldDeleteTaskAdmin(): void
     {
-
         $client = static::createClient();
         $user = static::getContainer()->get(UserRepository::class)->findOneByUsername('admin');
-        $task = static::getContainer()->get(TaskRepository::class)->findOneBy(['author' => 'anonyme']);
+        $anonyme = static::getContainer()->get(UserRepository::class)->findOneByUsername('anonyme');
+        $task = static::getContainer()->get(TaskRepository::class)->findOneBy(['author' => $anonyme]);
         $client->loginUser($user);
-        //dd($task);
         $taskId = $task->getId();
 
         $client->request('GET', '/task/' . $taskId . '/delete');
@@ -120,5 +118,4 @@ class TaskFunctionalTest extends WebTestCase
         $this->assertRouteSame('task_list');
         $this->assertSelectorExists('div.alert.alert-success');
     }
-    */
 }
