@@ -29,6 +29,7 @@ class UpdateTaskAuthorCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $tasks = $this->em->getRepository(Task::class)->findBy(['author' => null]);
+        /** @phpstan-ignore-next-line */
         $anonymeId = $this->em->getRepository(User::class)->findOneByUsername('anonyme')->getId();
 
         if ($tasks == [])

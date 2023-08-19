@@ -75,6 +75,10 @@
             "php bin/console doctrine:fixtures:load --env=test --no-interaction",
             "vendor/bin/phpunit --testdox"
         ],
+        "coverage": [
+            "php bin/console doctrine:fixtures:load --env=test --no-interaction",
+            "vendor/bin/phpunit --coverage-html var/test-coverage"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
